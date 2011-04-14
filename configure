@@ -632,6 +632,7 @@ QT_GUI_LIBS
 QT_GUI_CXXFLAGS
 QT_CORE_LIBS
 QT_CORE_CXXFLAGS
+QT_DBUS_LDFLAGS
 QT_MOC
 SVNDATE
 BFD_LIBS
@@ -14388,6 +14389,14 @@ $as_echo "not found" >&6; }
 
 fi
 
+	if test `${PKG_CONFIG} QtDBus --modversion | sed -e 's/\.//g'` -ge 470 ; then :
+
+		QT_DBUS_LDFLAGS="-lQtDBus"
+
+
+fi
+
+
 
 
 
@@ -15156,6 +15165,14 @@ $as_echo "not found" >&6; }
 		exit 1
 
 fi
+
+	if test `${PKG_CONFIG} QtDBus --modversion | sed -e 's/\.//g'` -ge 470 ; then :
+
+		QT_DBUS_LDFLAGS="-lQtDBus"
+
+
+fi
+
 
 
 

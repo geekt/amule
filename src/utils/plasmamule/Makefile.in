@@ -291,6 +291,7 @@ POSUB = @POSUB@
 POW_LIB = @POW_LIB@
 QT_CORE_CXXFLAGS = @QT_CORE_CXXFLAGS@
 QT_CORE_LIBS = @QT_CORE_LIBS@
+QT_DBUS_LDFLAGS = @QT_DBUS_LDFLAGS@
 QT_GUI_CXXFLAGS = @QT_GUI_CXXFLAGS@
 QT_GUI_LIBS = @QT_GUI_LIBS@
 QT_MOC = @QT_MOC@
@@ -404,7 +405,7 @@ nodist_plasma_applet_plasmamule_so_SOURCES = plasma-applet-plasmamule.moc
 plasma_engine_plasmamule_so_CXXFLAGS = -shared -I${KDE_HEADER_DIR} ${QT_CORE_CXXFLAGS} -DPIC -fPIC ${DEBUGFLAG}
 plasma_applet_plasmamule_so_CXXFLAGS = -shared -D__IMG_PATH__=\"${KDE_ICON_PATH}\" -I${KDE_HEADER_DIR} ${QT_GUI_CXXFLAGS} -DPIC -fPIC ${DEBUGFLAG}
 plasmamule_engine_feeder_CXXFLAGS = -I${KDE_HEADER_DIR} ${QT_GUI_CXXFLAGS} ${DEBUGFLAG}
-plasmamule_engine_feeder_LDFLAGS = ${QT_GUI_LIBS} -lkdecore -lplasma
+plasmamule_engine_feeder_LDFLAGS = ${QT_GUI_LIBS} -lkdecore -lplasma ${QT_DBUS_LDFLAGS}
 noinst_HEADERS = plasma-engine-plasmamule.h plasma-applet-plasmamule.h plasmamule-dbus.h qt-emc.h
 CLEANFILES = *.moc
 MAINTAINERCLEANFILES = Makefile.in
