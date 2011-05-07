@@ -14140,9 +14140,6 @@ fi
 	MULECFLAGS="$MULECFLAGS -g"
 	MULECXXFLAGS="$MULECXXFLAGS -g"
 
-		if test ${GLIBCXX:-no} = yes; then :
-  MULECPPFLAGS="$MULECPPFLAGS -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC"
-fi
 		if test ${GCC:-no} = yes; then :
 
 	MULECFLAGS="$MULECFLAGS -W -Wall -Wshadow -Wundef -ggdb -fno-inline -fmessage-length=0"
