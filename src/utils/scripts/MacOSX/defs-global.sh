@@ -8,6 +8,39 @@
 
 pn "-- Begin global def section --"
 
+SVN_REPOSITORY=$1
+
+if [ -z $SVN_REPOSITORY ]; then
+        AMULE_FOLDER=`cd ${SCRIPTDIR}/../../../../; pwd`
+	if [ -f "${AMULE_FOLDER}/src/amule.cpp" ]; then
+		pc $GREEN "\tSVN repository has not been specified, using detected local sources at \"${AMULE_FOLDER}\""
+	else
+		pc $RED "\tSVN repository has not been specified, and no local sources found at \"${AMULE_FOLDER}\".\n\tPlease specify your aMule source folder by setting the AMULE_FOLDER variable, or call the script with the SVN repository of your choice as a first parameter, or \"public\" to download from our public SVN repository."
+		exit
+	fi
+fi
+
+if [ -z "$BUILD_FOLDER" ]; then
+	if [ -z $SVN_REPOSITORY ]; then
+		BUILD_FOLDER="$AMULE_FOLDER/build/"
+		mkdir $BUILD_FOLDER 2>/dev/null
+	else
+		BUILD_FOLDER=`pwd`
+	fi
+
+	pc $BLUE "\tAutomatically setting build folder to ${BUILD_FOLDER} - set BUILD_FOLDER to your preferred folder to change this setting."
+else
+	pc $GREEN "\tSetting build folder to $BUILD_FOLDER"
+fi
+
+ROOT_FOLDER=`cd $BUILD_FOLDER; pwd`
+
+if [ -z $AMULE_FOLDER ]; then
+        AMULE_FOLDER="${ROOT_FOLDER}/amule-dev"
+fi
+
+pc $GREEN "\tBuild root absolute path is $ROOT_FOLDER"
+
 if [ "$SDKNUMBER" == "" ]; then
 	pc $BLUE "\tAutomatically setting SDK to 10.4u (tiger with i386 and ppc, gcc 4.0) - set SDKNUMBER to your preferred SDK if you want to target it (10.5, 10.6) or \"default\" for the default SDK."
 	SDKNUMBER=10.4
@@ -59,20 +92,12 @@ case "$UNIVERSAL" in
 	;;
 esac
 
-ROOT_FOLDER=`pwd`
-
-pc $GREEN "\tBuild root folder is $ROOT_FOLDER"
-
-SVN_REPOSITORY=$1
-
-AMULE_FOLDER="amule-dev"
-
 if [ "$STDOUT_FILE" == "" ]; then
-	STDOUT_FILE=build_output
+	STDOUT_FILE=${ROOT_FOLDER}/build_output
 fi
 
 if [ "$ERROR_FILE" == "" ]; then
-	ERROR_FILE=error_output
+	ERROR_FILE=${ROOT_FOLDER}/error_output
 fi
 
 pc $GREEN "\tErrors will be redirected to $ERROR_FILE, normal build output to $STDOUT_FILE"

@@ -22,6 +22,7 @@
 ## Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301, USA
 
 SCRIPTDIR=`dirname "$0"`
+SCRIPTNAME=`basename "$0"`
 
 PATH="$SCRIPTDIR:$PATH"
 
@@ -29,29 +30,44 @@ PATH="$SCRIPTDIR:$PATH"
 . defs-wx.sh
 . defs-functions.sh
 
-AMULE_FOLDER="amule-dev"
+echo "Start" > $STDOUT_FILE
+echo "Start" > $ERROR_FILE
+
+REPEATSCRIPT=${ROOT_FOLDER}/repeat.sh
+if [ -f $REPEATSCRIPT ]; then
+	chmod 600 $REPEATSCRIPT
+fi
+echo "Save configuration commandline to ${REPEATSCRIPT} - execute that script to repeat this compilation with the same options."
+echo "#!/bin/bash" > $REPEATSCRIPT
+echo "echo \"Starting repeat, moving away current repeat.sh\"" >> $REPEATSCRIPT
+echo "rm -rf \${0}.old 2>/dev/null; mv \$0 \${0}.old" >> $REPEATSCRIPT
+echo "SDKNUMBER=${SDKNUMBER} UNIVERSAL=${UNIVERSAL} WXVERSION=${WXVERSION} WXPORT=${WXPORT} SLIMWX=${SLIMWX} BUILD_FOLDER=${BUILD_FOLDER} $0" >> $REPEATSCRIPT
+echo "echo \"Repeat finished\"" >> $REPEATSCRIPT
+chmod 500 $REPEATSCRIPT
 
 echo "Starting build..."
 
 echo -e "\tGetting aMule sources..."
 
-echo "Start" > $STDOUT_FILE
-echo "Start" > $ERROR_FILE
-
 #Get aMule first, because it may contain patches
 if [ -d $AMULE_FOLDER/ ]; then
-	echo -e "\t\tSources already exist, updating."
-        pushd $AMULE_FOLDER/ >> $STDOUT_FILE
-        svn up >> $STDOUT_FILE
-        popd >> $STDOUT_FILE
+	if [ -d ${AMULE_FOLDER}/.svn/ ]; then
+		echo -e "\t\tSources already exist, updating."
+	        pushd $AMULE_FOLDER/ >> $STDOUT_FILE
+	        svn up >> $STDOUT_FILE
+	        popd >> $STDOUT_FILE
+	else
+		echo -e "\t\taMule sources at \"" $AMULE_FOLDER "\" are not from SVN checkout, so not updating."
+	fi
 else
 	echo -e "\tFirst checkout."
-	if [ -z $SVN_REPOSITORY ]; then
+	if [ "$SVN_REPOSITORY" == "public" ]; then
 		SVN_REPOSITORY=http://amule.googlecode.com/svn/trunk/
 		echo -e "\tUsing public SVN repository at ${SVN_REPOSITORY}."
 	else
 		echo -e "\tUsing provided SVN repository at ${SVN_REPOSITORY}."
 	fi
+
 	svn co $SVN_REPOSITORY $AMULE_FOLDER >> $STDOUT_FILE
 	if [ ! -d $AMULE_FOLDER/ ]; then
 		echo "ERROR: aMule sources could not be retrieved. Review your settings."
@@ -59,6 +75,7 @@ else
 	fi
 fi
 
+pushd $ROOT_FOLDER >> $STDOUT_FILE
 
 echo -e "\tDone"
 
@@ -73,7 +90,7 @@ else
 	svn checkout http://svn.wxwidgets.org/svn/wx/wxWidgets/${WXSVNROOT} ${WXFOLDER} >> $STDOUT_FILE 2>> $ERROR_FILE
 	pushd ${WXFOLDER} >> $STDOUT_FILE
 	echo -e "\tApplying patches."
-	for i in ../$AMULE_FOLDER/src/utils/patches/wxWidgets/*.patch; do 
+	for i in $AMULE_FOLDER/src/utils/patches/wxWidgets/*.patch; do 
 		echo -e "\t\tAppying \"$i\""
 		patch -p0 < $i >> $STDOUT_FILE 2>> $ERROR_FILE
 	done
@@ -129,7 +146,7 @@ else
 	unzip cryptopp.zip -d $CRYPTOPP_FOLDER >> $STDOUT_FILE 2>> $ERROR_FILE
 	pushd $CRYPTOPP_FOLDER >> $STDOUT_FILE 
 	#./configure 
-	for i in ../$AMULE_FOLDER/src/utils/patches/cryptopp/*.patch; do 
+	for i in $AMULE_FOLDER/src/utils/patches/cryptopp/*.patch; do 
 		echo -e "\t\tAppying \"$i\"" 
 		patch -p0 < $i >> $STDOUT_FILE 2>> $ERROR_FILE
 	done
@@ -266,7 +283,7 @@ echo -e "\tDone."
 
 echo -e "\tFINALLY compiling aMule..."
 
-pushd amule-dev/ >> $STDOUT_FILE 2>> $ERROR_FILE
+pushd $AMULE_FOLDER >> $STDOUT_FILE 2>> $ERROR_FILE
 
 if [ -f configure ]; then
 	echo -e "\t\tConfigure already exists"
@@ -323,10 +340,13 @@ cp -R ${AMULE_FOLDER}/aMule.app . >> $STDOUT_FILE 2>> $ERROR_FILE
 
 find aMule.app \( -name .svn -o -name "Makefile*" -o -name src \) -print0 | xargs -0 rm -rf >> $STDOUT_FILE 2>> $ERROR_FILE
 
-${AMULE_FOLDER}/src/utils/scripts/MacOSX/application_packager.sh ${ROOT_FOLDER}/${AMULE_FOLDER}/ >> $STDOUT_FILE 2>> $ERROR_FILE
+. application_packager.sh ${AMULE_FOLDER}/ >> $STDOUT_FILE 2>> $ERROR_FILE
 
 if [ ! -f aMule.zip ]; then
 	echo "ERROR: aMule.zip was not created. Please review the output files"
 else
 	echo "All Done"
 fi
+
+# Pop root folder.
+popd >> $STDOUT_FILE
