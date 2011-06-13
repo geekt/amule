@@ -3,7 +3,7 @@
 // Purpose:     generic implementation of wxListCtrl
 // Author:      Robert Roebling
 //              Vadim Zeitlin (virtual list control support)
-// Id:          $Id: listctrl.cpp 10510 2011-03-27 13:01:14Z gonosztopi $
+// Id:          $Id: listctrl.cpp 10579 2011-06-13 08:50:25Z gonosztopi $
 // Copyright:   Copyright (c) 1998-2011 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
