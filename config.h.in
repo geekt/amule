@@ -219,12 +219,6 @@
 /* Define to 1 if you have the <nl_types.h> header file. */
 #undef HAVE_NL_TYPES_H
 
-/* Define to 1 if you have the `poll' function. */
-#undef HAVE_POLL
-
-/* Define to 1 if you have the <poll.h> header file. */
-#undef HAVE_POLL_H
-
 /* Define to 1 if you have posix_fallocate() and it should be used. */
 #undef HAVE_POSIX_FALLOCATE
 

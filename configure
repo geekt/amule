@@ -9488,7 +9488,7 @@ $as_echo "#define STDC_HEADERS 1" >>confdefs.h
 
 fi
 
-for ac_header in argz.h arpa/inet.h fcntl.h inttypes.h langinfo.h libintl.h limits.h locale.h malloc.h mntent.h netdb.h netinet/in.h stddef.h nl_types.h stdint.h stdio_ext.h stdlib.h string.h strings.h sys/ioctl.h sys/mntent.h sys/mnttab.h sys/mount.h sys/param.h sys/resource.h sys/select.h sys/socket.h sys/statvfs.h sys/time.h sys/timeb.h sys/types.h unistd.h errno.h signal.h poll.h
+for ac_header in argz.h arpa/inet.h fcntl.h inttypes.h langinfo.h libintl.h limits.h locale.h malloc.h mntent.h netdb.h netinet/in.h stddef.h  nl_types.h stdint.h stdio_ext.h stdlib.h string.h strings.h sys/ioctl.h sys/mntent.h sys/mnttab.h sys/mount.h sys/param.h sys/resource.h sys/select.h sys/socket.h sys/statvfs.h sys/time.h sys/timeb.h sys/types.h unistd.h errno.h signal.h
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
@@ -11065,7 +11065,7 @@ $as_echo "#define realloc rpl_realloc" >>confdefs.h
 fi
 
 
-for ac_func in __argz_count __argz_next __argz_stringify endpwent floor ftruncate getcwd gethostbyaddr gethostbyname gethostname getpass gettimeofday inet_ntoa localeconv memmove mempcpy memset nl_langinfo pow select setlocale socket sqrt stpcpy strcasecmp strchr strcspn strdup strerror strncasecmp strstr strtoul sigaction poll
+for ac_func in __argz_count __argz_next __argz_stringify endpwent floor ftruncate getcwd gethostbyaddr gethostbyname gethostname getpass gettimeofday inet_ntoa localeconv memmove mempcpy memset nl_langinfo pow select setlocale socket sqrt stpcpy strcasecmp strchr strcspn strdup strerror strncasecmp strstr strtoul sigaction
 do :
   as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
 ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"
