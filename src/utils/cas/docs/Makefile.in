@@ -291,7 +291,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SELECTED_MANPAGES = $(CAS_MANPAGES)
-EXTRA_DIST = cas.1 cas.de.1 cas.es.1 cas.eu.1 cas.fr.1 cas.hu.1 cas.it.1
+EXTRA_DIST = cas.1 cas.de.1 cas.es.1 cas.fr.1 cas.hu.1 cas.it.1
 MAINTAINERCLEANFILES = Makefile.in
 all: all-am
 
