@@ -7356,6 +7356,58 @@ else
 			{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes (version $LIBPNG_VERSION)" >&5
 $as_echo "yes (version $LIBPNG_VERSION)" >&6; }
 
+			{ $as_echo "$as_me:${as_lineno-$LINENO}: checking if libpng is usable" >&5
+$as_echo_n "checking if libpng is usable... " >&6; }
+
+			SAVED_CFLAGS=$CFLAGS
+			SAVED_LDFLAGS=$LDFLAGS
+			SAVED_LIBS=$LIBS
+
+			CFLAGS+=" $LIBPNG_CFLAGS"
+			LDFLAGS+=" $LIBPNG_LDFLAGS"
+			LIBS+=" $LIBPNG_LIBS"
+
+			cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+
+					#include <png.h>
+                                	#include <stdio.h>
+
+int
+main ()
+{
+
+					png_uint_32 libpng_vn = png_access_version_number()
+					printf("\nlibpng version %i\n\n", libpng_vn);
+
+  ;
+  return 0;
+}
+
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+
+				{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+else
+
+				{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no (failed to compile and link test program)" >&5
+$as_echo "no (failed to compile and link test program)" >&6; }
+				LIBPNG_LIBS=
+				LIBPNG_LDFLAGS=
+				LIBPNG_CFLAGS=
+				LIBPNG_VERSION=
+
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+
+			CFLAGS=$SAVED_CFLAGS
+			LDFLAGS=$SAVED_LDFLAGS
+			LIBS=$SAVED_LIBS
+
 fi
 
 fi
