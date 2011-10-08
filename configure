@@ -7372,13 +7372,13 @@ $as_echo_n "checking if libpng is usable... " >&6; }
 
 
 					#include <png.h>
-                                	#include <stdio.h>
+					#include <stdio.h>
 
 int
 main ()
 {
 
-					png_uint_32 libpng_vn = png_access_version_number()
+					png_uint_32 libpng_vn = png_access_version_number();
 					printf("\nlibpng version %i\n\n", libpng_vn);
 
   ;
