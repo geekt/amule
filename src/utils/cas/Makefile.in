@@ -404,7 +404,7 @@ noinst_HEADERS = configfile.h \
 cas_CPPFLAGS = $(MULECPPFLAGS) $(CAS_DEFS)
 cas_CFLAGS = $(MULECFLAGS) $(GDLIB_CFLAGS)
 cas_LDFLAGS = $(MULELDFLAGS) $(GDLIB_LDFLAGS) $(am__append_1)
-cas_LDADD = $(GDLIB_LIBS) 
+cas_LDADD = $(GDLIB_LIBS)
 
 # Resources
 @NEED_RC_TRUE@SUFFIXES = .rc

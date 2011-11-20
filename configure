@@ -17080,7 +17080,7 @@ $as_echo X"$file" |
     done ;;
     "denoiser":C) if test $denoiserlevel -gt 0; then
 		if test ! -d src/utils/scripts; then mkdir -p src/utils/scripts; fi
-		sed -e "1{x;s/.*/1/;x;};/^[ 	]*\$/d;/^#if /{/level.*$denoiserlevel/{x;s/^/1/;x;b0;};x;s/^/0/;x;:0;d;};/^#else/{x;/^1/{s/1/0/;b1;};s/0/1/;:1;x;d;};/^#endif/{x;s/.//;x;d;};/^[ 	]*#/d;x;/^1/{x;b;};x;d" \
+		sed -e "1{x;s/.*/1/;x;};/^[	 ]*\$/d;/^#if /{/level.*$denoiserlevel/{x;s/^/1/;x;b0;};x;s/^/0/;x;:0;d;};/^#else/{x;/^1/{s/1/0/;b1;};s/0/1/;:1;x;d;};/^#endif/{x;s/.//;x;d;};/^[	 ]*#/d;x;/^1/{x;b;};x;d" \
 			$srcdir/src/utils/scripts/denoiser.rules > src/utils/scripts/denoiser.sed
 		for i in `find . -name 'Makefile' -print`; do
 			if test -n "`head -n 1 $i | grep '^#'`"; then

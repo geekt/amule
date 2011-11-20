@@ -330,7 +330,7 @@ top_srcdir = @top_srcdir@
 SUBDIRS = cpp
 
 # Sources
-MAINTAINERCLEANFILES = Makefile.in 
+MAINTAINERCLEANFILES = Makefile.in
 BUILT_SOURCES = ECGeneratedFiles
 ECGeneratedFilesSources = \
 	abstracts/ECTagTypes.abstract \
