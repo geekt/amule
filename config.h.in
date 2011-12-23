@@ -18,6 +18,10 @@
    language is requested. */
 #undef ENABLE_NLS
 
+/* Define to 1 if the C++ compiler is the GNU C++ compiler and it is using
+   strict aliasing. */
+#undef GCC_USES_STRICT_ALIASING
+
 /* Define to 1 if you have `alloca', as a function or macro. */
 #undef HAVE_ALLOCA
 
