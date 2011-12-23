@@ -7450,13 +7450,6 @@ _mule_has_warnings=yes
 
 fi
 
-# Check if we need to install skins
-if test ${enable_monolithic:-yes} = yes -o ${enable_amule_gui:-no} = yes ; then :
-  INSTALL_SKINS=yes
-else
-  INSTALL_SKINS=no
-fi
-
 # Check for GeoIP (required for IP2Country capability)
 if test ${enable_monolithic:-yes} = yes -o ${enable_amule_gui:-no} = yes ; then :
 
@@ -14780,7 +14773,7 @@ else
   GENERATE_FLEX_HEADER_FALSE=
 fi
 
- if test x$INSTALL_SKINS = xyes; then
+ if test  ${enable_monolithic:-yes} = yes -o ${enable_amule_gui:-no} = yes ; then
   INSTALL_SKINS_TRUE=
   INSTALL_SKINS_FALSE='#'
 else
